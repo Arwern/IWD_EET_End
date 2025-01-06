@@ -1,5 +1,7 @@
 BACKUP ~iwd_eet_end/backup~
-AUTHOR ~Ya~
+AUTHOR ~tipun~
+
+VERSION ~1.0~
 
 ALWAYS
 	OUTER_SPRINT newline ~%WNL%%LNL%%MNL%%TAB% ~
@@ -45,7 +47,7 @@ LANGUAGE ~Simplified Chinese~
 	     ~iwd_eet_end/lang/zh_CN/mod.tra~
 	     ~iwd_eet_end/lang/zh_CN/chapters.tra~
 
-BEGIN ~IceWind_End~
+BEGIN ~IWD_EET_End~
 
 
 INCLUDE ~%mod_lib%/functions.tph~

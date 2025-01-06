@@ -19,5 +19,5 @@
 - EET_End
 
 
-##### (Worldmap_IWD_EET is not needed any more, as it is part of IWD1 and IWD2.)
+##### (Worldmap_IWD_EET is not needed anymore, as it is part of IWD1 and IWD2.)
 
