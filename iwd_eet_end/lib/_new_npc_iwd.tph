@@ -112,7 +112,7 @@ ACTION_PHP_EACH FC_NPC_PDIALOG AS PDIALOG_IWD1 => ~~ BEGIN
 			FOR ( i = 0 ; i < states ; ++i ) BEGIN
 				READ_LONG states_off + i * 0x10 + 0x0c trig_idx
 				PATCH_IF ( trig_idx >= 0 ) BEGIN
-					SPRINT ~state_trigger_add~ ~%state_trigger_add%%LNL%ADD_STATE_TRIGGER %tilde%%PDIALOG_IWD1%%tilde% %i% %tilde%!Global("PARTY_IN_ICEWIND_DALE","GLOBAL",1)%tilde%~
+					SPRINT ~state_trigger_add~ ~%state_trigger_add%%LNL%ADD_STATE_TRIGGER %PDIALOG_IWD1% %i% %tilde%!Global("PARTY_IN_ICEWIND_DALE","GLOBAL",1)%tilde%~
 				END
 			END
 		END
@@ -129,7 +129,7 @@ ACTION_PHP_EACH FC_NPC_JDIALOG AS JDIALOG_IWD1 => ~~ BEGIN
 			FOR ( i = 0 ; i < states ; ++i ) BEGIN
 				READ_LONG states_off + i * 0x10 + 0x0c trig_idx
 				PATCH_IF ( trig_idx >= 0 ) BEGIN
-					SPRINT ~state_trigger_add~ ~%state_trigger_add%%LNL%ADD_STATE_TRIGGER %tilde%%JDIALOG_IWD1%%tilde% %i% %tilde%!Global("PARTY_IN_ICEWIND_DALE","GLOBAL",1)%tilde%~
+					SPRINT ~state_trigger_add~ ~%state_trigger_add%%LNL%ADD_STATE_TRIGGER %JDIALOG_IWD1% %i% %tilde%!Global("PARTY_IN_ICEWIND_DALE","GLOBAL",1)%tilde%~
 				END
 			END
 		END
@@ -317,6 +317,166 @@ COPY ~%MOD_FOLDER%/spl/spell.spl~ ~override/idimbltz.spl~
 //BLOCK PATCH_WORLD_SCRIPT
 ACTION_IF ( ins_type = 1 ) BEGIN
 	<<<<<<<<bld1.baf
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    Global("OHSMODE","GLOBAL",1)
+	    Global("OHSMOFF","GLOBAL",0)
+	    OR(2)
+	        !StoryModeOn()
+	        NightmareModeOn()
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        SetGlobal("OHSMODE","GLOBAL",0)
+	        ApplySpellRES("OHSMODE2",Player1)  // No such index
+	        DisplayStringNoNameHead(Player1,103102)  // Режим повествования: Выключен
+	        SetInterrupt(TRUE)
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    Global("OHSMODE","GLOBAL",0)
+	    Global("OHSMOFF","GLOBAL",0)
+	    StoryModeOn()
+	    !NightmareModeOn()
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        SetGlobal("OHSMODE","GLOBAL",1)
+	        ApplySpellRES("OHSMODE1",Player1)  // No such index
+	        DisplayStringNoNameHead(Player1,103101)  // Режим повествования: Включен
+	        SetInterrupt(TRUE)
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    StoryModeOn()
+	    !CheckSpellState(Player2,STORY_MODE)
+	    InParty(Player2)
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        ApplySpellRES("OHSMODE4",Player2)  // No such index
+	        SetInterrupt(TRUE)
+	        Continue()
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    StoryModeOn()
+	    !CheckSpellState(Player3,STORY_MODE)
+	    InParty(Player3)
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        ApplySpellRES("OHSMODE4",Player3)  // No such index
+	        SetInterrupt(TRUE)
+	        Continue()
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    StoryModeOn()
+	    !CheckSpellState(Player4,STORY_MODE)
+	    InParty(Player4)
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        ApplySpellRES("OHSMODE4",Player4)  // No such index
+	        SetInterrupt(TRUE)
+	        Continue()
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    StoryModeOn()
+	    !CheckSpellState(Player5,STORY_MODE)
+	    InParty(Player5)
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        ApplySpellRES("OHSMODE4",Player5)  // No such index
+	        SetInterrupt(TRUE)
+	        Continue()
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    StoryModeOn()
+	    !CheckSpellState(Player6,STORY_MODE)
+	    InParty(Player6)
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        ApplySpellRES("OHSMODE4",Player6)  // No such index
+	        SetInterrupt(TRUE)
+	        Continue()
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    !StoryModeOn()
+	    CheckSpellState(Player2,STORY_MODE)
+	    InParty(Player2)
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        ApplySpellRES("OHSMODE3",Player2)  // No such index
+	        SetInterrupt(TRUE)
+	        Continue()
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    !StoryModeOn()
+	    CheckSpellState(Player3,STORY_MODE)
+	    InParty(Player3)
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        ApplySpellRES("OHSMODE3",Player3)  // No such index
+	        SetInterrupt(TRUE)
+	        Continue()
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    !StoryModeOn()
+	    CheckSpellState(Player4,STORY_MODE)
+	    InParty(Player4)
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        ApplySpellRES("OHSMODE3",Player4)  // No such index
+	        SetInterrupt(TRUE)
+	        Continue()
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    !StoryModeOn()
+	    CheckSpellState(Player5,STORY_MODE)
+	    InParty(Player5)
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        ApplySpellRES("OHSMODE3",Player5)  // No such index
+	        SetInterrupt(TRUE)
+	        Continue()
+	END
+	
+	IF
+	    !Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
+	    !StoryModeOn()
+	    CheckSpellState(Player6,STORY_MODE)
+	    InParty(Player6)
+	THEN
+	    RESPONSE #100
+	        SetInterrupt(FALSE)
+	        ApplySpellRES("OHSMODE3",Player6)  // No such index
+	        SetInterrupt(TRUE)
+	END
+
 	IF
 		!Global("PARTY_IN_ICEWIND_DALE","GLOBAL",0)
 	THEN
